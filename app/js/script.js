@@ -6,7 +6,7 @@ if(data && data.Entity){
     // Load UI
     if(productData.length > 0){
         var attData = [];
-        var prevAttData = JSON.parse(productData[0].API_Data || {});
+        var prevAttData = JSON.parse(productData[0].API_Data || "[]");
         let noOfDays = productData[0].No_of_days || 0;
         let tHeadTxt = "<th scope='col' class='text-center'>Participats</th>";
         let checkBoxHtml = "";
@@ -17,13 +17,14 @@ if(data && data.Entity){
             checkBoxHtml+="<td><input type='checkbox' name='attCheck' partId='#$#' day='Day"+i+"' id='atCheck_C"+i+"R###'></td>";
         }
         document.getElementById("tHeadRow").innerHTML = tHeadTxt;
-        let programParticipants = await ZOHO.CRM.API.getRelatedRecords({Entity:data.Entity,RecordID:data.EntityId,RelatedList:"Participants3"});
+        let programParticipants = await ZOHO.CRM.API.getRelatedRecords({Entity:data.Entity,RecordID:data.EntityId,RelatedList:"Contacts"});
+        console.log(programParticipants);
         let tBodyTxt = "";
         programParticipants.data.forEach((relatedRec,index) => {
             index = index+1;
-            let participantName = relatedRec.Participants.name || "Empty";
-            let participantId = relatedRec.Participants.id || 0;
-            attData.push({Participants:relatedRec.Participants,Attendance:daysMap});
+            let participantName = relatedRec.Full_Name || "Empty";
+            let participantId = relatedRec.id || 0;
+            attData.push({Participants:{id:participantId},Attendance:daysMap});
             let newcheckBoxHtml = checkBoxHtml.replaceAll("###",index);
             newcheckBoxHtml = newcheckBoxHtml.replaceAll("#$#",participantId);
             tBodyTxt+= "<tr><td id='"+participantId+"'>"+participantName+"</td>"+newcheckBoxHtml+"</tr>";
