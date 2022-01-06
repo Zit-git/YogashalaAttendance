@@ -6,9 +6,9 @@ if(data && data.Entity){
     // Load UI
     if(productData.length > 0){
         var attData = [];
-        var prevAttData = JSON.parse(productData[0].API_Data || {});
+        var prevAttData = JSON.parse(productData[0].API_Data || "[]");
         let noOfDays = productData[0].No_of_days || 0;
-        let tHeadTxt = "<th scope='col' class='text-center'>Participats</th>";
+        let tHeadTxt = "<th scope='col' class='text-center'>Participants</th>";
         let checkBoxHtml = "";
         let daysMap = {};
         for(let i=1;i<=noOfDays;i++){
