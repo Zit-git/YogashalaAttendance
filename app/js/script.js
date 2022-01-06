@@ -14,7 +14,7 @@ if(data && data.Entity){
         for(let i=1;i<=noOfDays;i++){
             daysMap["Day"+i] = false;
             tHeadTxt+= "<th scope='col' class='text-center'>Day "+i+"</th>";
-            checkBoxHtml+="<td><input type='checkbox' name='attCheck' partId='#$#' day='Day"+i+"' id='atCheck_C"+i+"R###'></td>";
+            checkBoxHtml+="<td style='text-align: center;'><input type='checkbox' name='attCheck' partId='#$#' day='Day"+i+"' id='atCheck_C"+i+"R###'></td>";
         }
         document.getElementById("tHeadRow").innerHTML = tHeadTxt;
         let programParticipants = await ZOHO.CRM.API.getRelatedRecords({Entity:data.Entity,RecordID:data.EntityId,RelatedList:"Participants3"});
